@@ -20,6 +20,10 @@ const InventoryItemSchema = new mongoose.Schema({
         required: [true, 'Price is required'],
         min: [0, 'Price cannot be negative'],
     },
+    tags: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tag', // Reference to the Tag model
+    }],
     createdAt: {
         type: Date,
         default: Date.now,
