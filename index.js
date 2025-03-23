@@ -33,12 +33,15 @@ mongoose.connect(MONGO_URI)
 
 app.post('/api/inventory', async (req,res)=>{
     const {name, description, quantity, price}=req.body;
+    if (!name || !description || !quantity || !price) {
+        return res.status(400).json({ message: 'Missing required fields' });
+    }
     try {
         const newItems=new InventoryItem({name, description, quantity, price});
         await newItems.save();
         res.json(newItems);
     } catch (error) {
-        res.status(500).json({message: error.message}) // Corrected error response
+        res.status(500).json({message: error.message})
     }
 })
 
@@ -47,13 +50,16 @@ app.get('/api/inventory', async(req,res)=>{
         const getItems= await InventoryItem.find();
         res.json(getItems);
     } catch (error) {
-        res.status(500).json({message: error.message}) // Corrected error response
+        res.status(500).json({message: error.message})
     }
 })
 
 // PUT Route
 app.put('/api/inventory/:id', async (req, res) => {
     const { name, description, quantity, price } = req.body;
+    if (!name || !description || !quantity || !price) {
+        return res.status(400).json({ message: 'Missing required fields' });
+    }
     try {
         const updatedItem = await InventoryItem.findByIdAndUpdate(
             req.params.id,
