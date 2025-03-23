@@ -1,6 +1,7 @@
 // routes/inventoryRoutes.js
 const express = require('express');
 const InventoryItem = require('../models/InventoryItem');
+const TagSchema = require('../models/TagSchema');
 
 const router = express.Router();
 
